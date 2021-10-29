@@ -97,7 +97,7 @@ public class DotLottie: NSObject {
       DotLottieLoader.load(from: url, cache: cache) { (dotLottieFile) in
             if let dotLottieFile = dotLottieFile {
                 animation(lottie: dotLottieFile, completion: completionHandler)
-            } else if let url = DotLottieUtils.bundleURL(for: name) {
+            } else {
                 animation(for: url, completion: completionHandler)
             }
         }
