@@ -87,6 +87,22 @@ public class DotLottie: NSObject {
         }
     }
     
+    @objc
+    public static func objcLoad(from url: URL, shouldCache:
+        Bool = true, completion: ((Animation?) -> Void)? = nil) {
+      let cache = shouldCache ? DotLottieCache.cache : DotLottieCache.ignoreCache;
+      let completionHandler = { (animation: Animation?, file: LottieFile?) -> Void in
+        completion!(animation);
+    }
+      DotLottieLoader.load(from: url, cache: cache) { (dotLottieFile) in
+            if let dotLottieFile = dotLottieFile {
+                animation(lottie: dotLottieFile, completion: completionHandler)
+            } else if let url = DotLottieUtils.bundleURL(for: name) {
+                animation(for: url, completion: completionHandler)
+            }
+        }
+    }
+    
     /// Loads Lottie animation with url to JSON file
     /// - Parameters:
     ///   - url: url to load animation from
