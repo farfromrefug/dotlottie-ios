@@ -14,7 +14,7 @@ public typealias LottieFile = DotLottieFile
 public typealias DotLottieResponse = (Animation?, LottieFile?) -> Void
 
 @objc
-public class DotLottie {
+public class DotLottie: NSObject {
     
     /// Enables log printing
     @objc
