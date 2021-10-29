@@ -17,7 +17,6 @@ public typealias DotLottieResponse = (Animation?, LottieFile?) -> Void
 public class DotLottie: NSObject {
     
     /// Enables log printing
-    @objc
     public static var isLogEnabled: Bool {
         get {
             DotLottieUtils.isLogEnabled
@@ -39,7 +38,6 @@ public class DotLottie: NSObject {
     ///   - name: name of animation in bundle
     ///   - cache: Cache type   
     ///   - completion: Lottie Animation
-    @objc
     public static func load(name: String, cache:
         DotLottieCache = .cache, completion: @escaping DotLottieResponse) {
         DotLottieLoader.load(name: name, cache: cache) { (dotLottieFile) in
@@ -51,6 +49,27 @@ public class DotLottie: NSObject {
         }
     }
     
+    /// Loads animation in bundle with given name
+    /// - Parameters:
+    ///   - name: name of animation in bundle
+    ///   - cache: Cache type
+    ///   - completion: Lottie Animation
+    @objc
+    public static func objcLoad(name: String, shouldCache:
+        Bool = true, completion: ((Animation?) -> Void)? = nil) {
+      let cache = shouldCache ? DotLottieCache.cache : DotLottieCache.ignoreCache;
+      let completionHandler = { (animation: Animation?, file: LottieFile?) -> Void in
+        completion!(animation);
+    }
+      DotLottieLoader.load(name: name, cache: cache) { (dotLottieFile) in
+            if let dotLottieFile = dotLottieFile {
+                animation(lottie: dotLottieFile, completion: completionHandler)
+            } else if let url = DotLottieUtils.bundleURL(for: name) {
+                animation(for: url, completion: completionHandler)
+            }
+        }
+    }
+    
     /// Loads an animation from a URL
     /// If it's a remote .lottie file, we download, unzip and extract the animation
     /// For .json files, we simply show the animation
@@ -58,7 +77,6 @@ public class DotLottie: NSObject {
     ///   - url: url to load animation from
     ///   - cache: Cache type
     ///   - completion: Lottie Animation
-    @objc
     public static func load(from url: URL, cache: DotLottieCache = .cache, completion: @escaping DotLottieResponse) {
         DotLottieLoader.load(from: url, cache: cache) { (dotLottieFile) in
             if let dotLottieFile = dotLottieFile {
@@ -73,7 +91,6 @@ public class DotLottie: NSObject {
     /// - Parameters:
     ///   - url: url to load animation from
     ///   - completion: Lottie animation
-    @objc
     public static func animation(for url: URL, completion: @escaping DotLottieResponse) {
         guard url.isJsonFile else {
             DotLottieUtils.log("""
@@ -93,7 +110,6 @@ public class DotLottie: NSObject {
     /// - Parameters:
     ///   - lottie: lottie object
     ///   - completion: Lottie animation
-    @objc
     public static func animation(lottie: DotLottieFile, completion: @escaping DotLottieResponse) {
         guard let url = lottie.animations.first, url.isJsonFile else {
             DotLottieUtils.log("""
