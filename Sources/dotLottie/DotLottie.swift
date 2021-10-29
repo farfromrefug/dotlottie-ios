@@ -13,9 +13,11 @@ import dotLottieLoader
 public typealias LottieFile = DotLottieFile
 public typealias DotLottieResponse = (Animation?, LottieFile?) -> Void
 
+@objc
 public class DotLottie {
     
     /// Enables log printing
+    @objc
     public static var isLogEnabled: Bool {
         get {
             DotLottieUtils.isLogEnabled
@@ -37,6 +39,7 @@ public class DotLottie {
     ///   - name: name of animation in bundle
     ///   - cache: Cache type   
     ///   - completion: Lottie Animation
+    @objc
     public static func load(name: String, cache:
         DotLottieCache = .cache, completion: @escaping DotLottieResponse) {
         DotLottieLoader.load(name: name, cache: cache) { (dotLottieFile) in
@@ -55,6 +58,7 @@ public class DotLottie {
     ///   - url: url to load animation from
     ///   - cache: Cache type
     ///   - completion: Lottie Animation
+    @objc
     public static func load(from url: URL, cache: DotLottieCache = .cache, completion: @escaping DotLottieResponse) {
         DotLottieLoader.load(from: url, cache: cache) { (dotLottieFile) in
             if let dotLottieFile = dotLottieFile {
@@ -69,6 +73,7 @@ public class DotLottie {
     /// - Parameters:
     ///   - url: url to load animation from
     ///   - completion: Lottie animation
+    @objc
     public static func animation(for url: URL, completion: @escaping DotLottieResponse) {
         guard url.isJsonFile else {
             DotLottieUtils.log("""
@@ -88,6 +93,7 @@ public class DotLottie {
     /// - Parameters:
     ///   - lottie: lottie object
     ///   - completion: Lottie animation
+    @objc
     public static func animation(lottie: DotLottieFile, completion: @escaping DotLottieResponse) {
         guard let url = lottie.animations.first, url.isJsonFile else {
             DotLottieUtils.log("""
