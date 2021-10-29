@@ -19,7 +19,7 @@ dotLottie is an open-source file format that aggregates one or more Lottie files
 
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'eharrison' => 'evandro.hoffmann@gmail.com' }
-  s.source           = { :git => 'https://github.com/dotlottie/dotlottie-ios.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/farfromrefug/dotlottie-ios.git', :tag => s.version.to_s }
   
   s.swift_version = '5.0'
   s.ios.deployment_target = '9.0'
@@ -31,5 +31,5 @@ dotLottie is an open-source file format that aggregates one or more Lottie files
   s.module_name = 'dotLottie'
   
   s.dependency 'dotLottieLoader', '~> 0.1.3'
-  s.dependency 'lottie-ios', '~> 3.2.0'
+  s.dependency 'lottie-ios', :git => 'https://github.com/farfromrefug/lottie-ios.git'
 end
