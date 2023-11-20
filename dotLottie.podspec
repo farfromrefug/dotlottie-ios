@@ -31,5 +31,5 @@ dotLottie is an open-source file format that aggregates one or more Lottie files
   s.module_name = 'dotLottie'
   
   s.dependency 'dotLottieLoader', '~> 0.1.3'
-  s.dependency 'lottie-ios', '~> 3.4.1'
+  s.dependency 'lottie-ios', '~> 4.3.3'
 end
